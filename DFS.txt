@@ -8,7 +8,7 @@ int number = 7;
 int c[7]; //checked
 vector<int> a[8];
 
-void dfs(int x) 
+void dfs(int x)
 {
 	if (c[x]) return;	// 방문 했으면 리턴
 	c[x] = true;		// 방문 true 찍고
@@ -21,7 +21,7 @@ void dfs(int x)
 }
 
 
-int main(void) 
+int main(void)
 {
 	a[1].push_back(2);
 	a[2].push_back(1);
