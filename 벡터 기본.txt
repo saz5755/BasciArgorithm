@@ -1,0 +1,27 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+
+//벡터 기본
+int main(void) {
+	vector<pair<int, string>> v;
+	v.push_back(pair<int, string>(90, "강"));
+	v.push_back(pair<int, string>(85, "박"));
+	v.push_back(pair<int, string>(82, "나"));
+	v.push_back(pair<int, string>(98, "이"));
+	v.push_back(pair<int, string>(79, "최"));
+					//fist, second
+
+	sort(v.begin(), v.end());
+		//벡터의 앞 뒤,
+
+	for (int i = 0; i < v.size(); i++)
+	{
+		cout << v[i].second << ' ';
+	}
+
+
+}
