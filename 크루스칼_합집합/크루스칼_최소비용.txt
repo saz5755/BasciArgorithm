@@ -1,0 +1,94 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+
+using namespace std;
+
+// 크루스칼 알고리즘
+// getParent, unionParent, findParent 함수는 
+// 유니온 합집합에 기본적으로 쓰임 (싸이클 검증 가능)
+
+int getParent(int set[], int x) {
+	//실제 부모 찾기
+	if (set[x] == x) return x;
+	return set[x] = getParent(set, set[x]);
+}
+
+//두 부모 노드를 합치는 함수
+void unionParent(int set[], int a, int b) {
+	// 각각의 부모 값을 구한 뒤
+	a = getParent(set, a);
+	b = getParent(set, b);
+
+	// 더 상위 부모로 노드 초기화
+	if (a < b) set[b] = a;
+	else set[a] = b;
+}
+
+//같은 부모를 가지는지 확인 == 같은 그래프에 있는지
+int find(int set[], int a, int b) {
+	a = getParent(set, a);
+	b = getParent(set, b);
+	if (a == b)return 1;
+	return 0;
+}
+
+//간선 클래스 선언
+class Edge {
+public:
+	int node[2];
+	int distance;
+	//생성자
+	Edge(int a, int b, int distance) {
+		this->node[0] = a;
+		this->node[1] = b;
+		this->distance = distance;
+	}
+	//최소 비용 순으로 나열
+	bool operator < (Edge& edge) {
+		return this->distance < edge.distance;
+	}
+
+};
+
+int main(void) {
+	
+	const int n = 7;
+	// 상수로 계산되지 않음 ====> 변하지 않는 수가 되어야함?
+	// 정점개수 중간에 추가 될까봐??
+	// 몰까~
+	int m = 11;
+
+	vector<Edge> v;
+	v.push_back(Edge(1, 7, 12));	//1, 7 노드에 비용 12
+	v.push_back(Edge(1, 4, 28));	
+	v.push_back(Edge(1, 2, 67));	
+	v.push_back(Edge(1, 5, 17));	
+	v.push_back(Edge(2, 4, 24));	
+	v.push_back(Edge(2, 5, 62));	
+	v.push_back(Edge(3, 5, 20));	
+	v.push_back(Edge(3, 6, 37));	
+	v.push_back(Edge(4, 7, 13));	
+	v.push_back(Edge(5, 6, 45));	
+	v.push_back(Edge(5, 7, 73));	
+	
+	// 간선 비용을 기준으로 오름차순 정렬
+	sort(v.begin(), v.end());	//algorithm에
+
+	//각 정점이 포함된 그래프가 어디인지 저장
+	
+	int set[n]; // ???
+	for (int i = 0; i < n; i++)
+	{
+		set[i] = i;
+	}
+	int sum = 0;
+	for (int  i = 0; i < v.size(); i++)
+	{
+		if (!find(set, v[i].node[0] - 1, v[i].node[1] - 1)) {
+			sum += v[i].distance;
+			unionParent(set, v[i].node[0] - 1, v[i].node[1] - 1);
+		}
+	}
+	printf("%d\n", sum);
+}
