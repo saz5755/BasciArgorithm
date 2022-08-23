@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+// 에라토스테네의 체 
+// 각 2,3,4...의 배수 지우고 남은걸 보니 소수
+
+int number = 100000;
+int a[100001];
+
+
+void primeNumberSieve() {
+	//각 배열에 자기 자신 번호 넣어줌
+	for (int i = 2; i <= number; i++)
+	{
+		a[i] = i;
+	}
+	for (int i = 2; i <= number; i++)
+	{
+		//이미 0으로 지워졌다면 다음~
+		if (a[i] == 0) continue;
+		//배열에 담아서
+		for (int j = i + i; j <= number; j+=i)
+		{
+			a[j] = 0;
+		}
+	}
+	//출력
+	for (int i = 2; i <= number; i++)
+	{
+		if (a[i] != 0) printf("%d ", a[i]);
+	}
+}
+
+int main(void) {
+	primeNumberSieve();
+}
