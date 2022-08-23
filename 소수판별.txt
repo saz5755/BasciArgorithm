@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <math.h>
+
+//제곱근 이용한 방식 O(N)/2
+bool isPrimeNumber(int x) 
+{
+	int end = (int)sqrt(x);
+	for (int i = 2; i <= end; i++)
+	{
+		if (x % i == 0) return false;
+	}
+	return true;
+}
+//소수 판별 알고리즘
+//에라토스테네
+
+//isPrimeNumber은 O(N)
+//bool isPrimeNumber(int x) {
+//	for (int i = 2; i < x; i++)
+//	{
+//		if (x % i == 0) return false;
+//	}
+//	return true;
+//}
+//
+
+int main(void) {
+	printf("%d", isPrimeNumber(97));
+	return 0;
+}
+
+
