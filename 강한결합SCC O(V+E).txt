@@ -1,0 +1,83 @@
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <algorithm>
+#define MAX 10001
+
+using namespace std;
+
+// SCC 강한 결합 요소 알고리즘
+// 싸이클 발생? ==> SCC 
+// 방향 그래프 일때 유의미함   무방향 그래프도 적용이 된다면 전체가 SCC 되버림
+
+int id, d[MAX];
+bool finished[MAX];
+vector<int> a[MAX];
+vector<vector<int>> SCC;
+stack<int> s;
+
+int dfs(int x)
+{
+	//노드마다 고유한 번호 할당
+	d[x] = ++id;
+	//스택에 자기 자신 삽입
+	s.push(x);
+
+	int parent = d[x];
+	for (int i = 0; i < a[x].size(); i++)
+	{
+		//인접한 노드 
+		int y = a[x][i];
+		//해당 노드로 방문한 적이 없다면 부모를 더 작은 값으로 갱신
+		if (d[y] == 0) parent = min(parent, dfs(y));
+		// 처리 중인 이웃
+		else if (!finished[y]) parent = min(parent, d[y]);
+	}
+	//자기 자신이 부모인 경우
+	if (parent == d[x]) {
+		vector<int> scc;
+		while (1) {
+			int t = s.top();
+			s.pop();
+			scc.push_back(t);
+			finished[t] = true;
+			if (t == x) break;
+		}
+		SCC.push_back(scc);
+	}
+	return parent;
+}
+
+int main(void) {
+	int v = 11;
+	a[1].push_back(2);
+	a[2].push_back(3);
+	a[3].push_back(1);
+	a[4].push_back(2);
+	a[4].push_back(5);
+	a[5].push_back(7);
+	a[6].push_back(5);
+	a[7].push_back(6);
+	a[8].push_back(5);
+	a[8].push_back(9);
+	a[9].push_back(10);
+	a[10].push_back(11);
+	a[11].push_back(3);
+	a[11].push_back(8);
+
+	for (int i = 1; i <= v; i++)
+	{
+		if (d[i] == 0) dfs(i);
+	}
+	printf("SCC의 개수 : %d \n", SCC.size());
+	for (int i = 0; i < SCC.size(); i++)
+	{
+		printf("%d번째SCC: ", i + 1);
+		for (int j = 0; j < SCC[i].size(); j++)
+		{
+			printf("%d ", SCC[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
