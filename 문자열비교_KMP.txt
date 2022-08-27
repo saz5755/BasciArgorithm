@@ -1,0 +1,56 @@
+#include<istream>
+#include<vector>
+
+using namespace std;
+
+// 문자열 매칭
+// 접두사, 접미사 개념을 활용하여 반복되는 연산 줄이는
+// KMP(Knuth_Morris_Pratt)알고리즘
+
+vector<int> makeTable(string pattern) {
+	int patternSize = pattern.size();
+
+	// 패턴사이즈의 개수(8)만큼 배열을 0으로 초기화
+	vector<int> table(patternSize, 0);
+	int j = 0;
+
+	for (int i = 1; i < patternSize; i++)
+	{
+		while (j > 0 && pattern[i] != pattern[j]) {
+			j = table[j - 1];
+		}
+		if (pattern[i] == pattern[j]) 
+		{
+			table[i] = ++j;
+		}
+	}
+	return table;
+}
+
+void KMP(string parent, string pattern) {
+	vector<int> table = makeTable(pattern);
+	int parentSzie = parent.size();
+	int patternSize = pattern.size();
+	int j = 0;
+	for (int i = 0; i < parentSzie; i++)
+	{
+		while (j > 0 && parent[i] != pattern[j]) {
+			j = table[j - 1];
+		  }
+		if (parent[i] == pattern[j]) {
+			if (j == patternSize - 1) {
+				printf("%d번째에 찾았습니다.\n", i - patternSize + 2);
+				j = table[j];
+			}
+			else {
+				j++;
+			}
+		}
+	}
+}
+
+int main(void) {
+	string parent = "ababacabacaabacaaba";
+	string pattern = "abacaaba";
+	KMP(parent, pattern);
+}
