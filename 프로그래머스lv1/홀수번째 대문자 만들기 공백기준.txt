@@ -1,0 +1,23 @@
+#include <string>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+string solution(string s) {
+    string answer = "";
+	int count;
+	for (int i = 0; i < s.size(); i++)
+	{
+		if (s[i] == ' ') {
+			answer += ' ';
+			count = 0;
+		}
+		else
+		{
+			count % 2 == 0 ? answer += toupper(s[i]) : answer += tolower(s[i]);
+			count += 1;
+		}
+	}
+    return answer;
+}
