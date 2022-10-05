@@ -1,0 +1,31 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+int main(void) {
+	vector<int> v;
+	v.push_back(1); v.push_back(2); v.push_back(3);
+	v.push_back(4); v.push_back(5); v.push_back(6);
+	v.push_back(7); v.push_back(8); v.push_back(9);
+	v.push_back(10);
+	cout  << "ex) 범위기반 반복문 const reference를 이용한 데이터 변경 불가능" << endl;
+	for (const int & elem : v) {
+		//elem += 100; 불가능.        
+		cout  << elem  << " ";
+	}     cout  << endl;
+	for (int& elem : v) {
+		elem  += 100; //가능.        
+		cout  << elem  << " ";
+	}     cout  << endl;
+	for (const int & elem : v) {
+		cout  << elem  << " ";
+	}
+	cout  << endl  << endl;
+	system("pause");
+	return 0;
+}
+
+
+// 만약 게임에서 hp,mp 등 스텟을 가지고 탑을 연속적으로 오를때 참조한(&)데이터를 변경된 상태로 바꿀 때 이용하기  
+// 또는 반대로 const를 사용하여 막았을때는 해당하는 맵안에서만 스텟을 적용시키고 다른곳에서는 초기화된 상태로 하기

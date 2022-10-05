@@ -1,0 +1,49 @@
+#include <string>
+#include <vector>
+#include <stack>
+
+using namespace std;
+
+string rotate(string str)
+{
+	string res = str;
+	char tmp = res[0];
+	res.erase(res.begin());
+	res.push_back(tmp);
+	return res;
+}
+
+bool isCorrect(string str) {
+
+	stack<char> s;
+
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str[i] == '(' || str[i] == '{' || str[i] == '[') {
+			s.push(str[i]);
+		}
+		else
+		{
+			if (s.empty()) return false;
+			else
+			{
+				if (s.top() == '(' && str[i] == ')') s.pop();
+				else if (s.top() == '{' && str[i] == '}') s.pop();
+				else if (s.top() == '[' && str[i] == ']') s.pop();
+			}
+		}
+	}
+	if (!s.empty()) return false;
+	return true;
+}
+
+int solution(string str) {
+	int answer = 0;
+	if (isCorrect(str)) answer++;
+	for (int i = 1; i < str.size(); i++)
+	{
+		str = rotate(str);
+		if (isCorrect(str)) answer++;
+	}
+	return answer;
+}
