@@ -1,0 +1,22 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string words = "AEIOU";
+int answer, cnt;
+
+void dfs(string now, string target) {
+	if (now == target) answer = cnt;
+	if (now.size() > 5) return;
+	cnt++;
+	for (int i = 0; i < words.size(); i++)
+	{
+		dfs(now + words[i], target);
+	}
+}
+
+int solution(string word) {
+	dfs("", word);
+	return answer;
+}
