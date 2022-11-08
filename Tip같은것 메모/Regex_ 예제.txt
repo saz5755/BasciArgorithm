@@ -1,0 +1,29 @@
+Regex 메서드 - 문자열
+
+Regualr Expression 
+
+// Ex1. 첫 매치 문자열 출력
+string str = "서울시 강남구 역삼동 강남아파트";
+Regex regex = new Regex("강남");
+Match m = regex.Match(str);
+if (m.Success)
+{
+    Debug.WriteLine("{0}:{1}", m.Index, m.Value);
+}
+
+// Ex2. 매치된 문자열 계속 출력
+Regex regex = new Regex("강남");
+Match m = regex.Match(str);
+while (m.Success)
+{
+    Debug.WriteLine("{0}:{1}", m.Index, m.Value);
+    m = m.NextMatch();
+}
+
+// Ex3. Matches() 메서드
+Regex regex = new Regex("강남");
+MatchCollection mc = regex.Matches(str);
+foreach (Match m in mc)
+{
+    Debug.WriteLine("{0}:{1}", m.Index, m.Value);                
+}

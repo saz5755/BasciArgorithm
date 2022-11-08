@@ -1,0 +1,22 @@
+using System;
+
+public class Solution
+{
+    public int solution(string my_string)
+    {
+        int answer = 0;
+
+	//foreach 돌것이라서 var형이 char으로 변환되어 따로 char배열 만들 필요없음
+	//char안에 IsNumber숫자가 있다면 
+	//Convert.ToInt32 후 ==> 아스키 값 -48 빼면 int 숫자 
+        foreach (var item in my_string)
+        {
+            if (char.IsNumber(item))
+            {
+                answer += Convert.ToInt32(item) - 48;
+            }
+        }
+
+        return answer;
+    }
+}
