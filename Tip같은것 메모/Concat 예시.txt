@@ -1,0 +1,16 @@
+Concat 예시
+
+using System;
+using System.Linq;
+
+public class Solution
+{
+    public string solution(int age)
+    {
+        string answer = "";
+        string result = string.Concat(age.ToString().Select(e => Convert.ToChar(e+49)));
+
+        answer = result;
+        return answer;
+    }
+}
