@@ -1,0 +1,28 @@
+using System;
+
+public class Solution
+{
+    public double solution(int balls, int share)
+    {
+        double answer = 0;
+
+        double sum1 = 1;
+        double sum2 = 1;
+        double sum3 = 1;
+        for (double i = 1; i <= balls; i++)
+        {
+            sum1 *= i;
+        }
+        for (double i = 1; i <= share; i++)
+        {
+            sum2 *= i;
+        }
+        for (double i = 1; i <= balls - share; i++)
+        {
+            sum3 *= i;
+        }
+        answer = Math.Round(sum1 / (sum2 * sum3));
+
+        return answer;
+    }
+}
